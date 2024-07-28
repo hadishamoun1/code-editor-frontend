@@ -1,0 +1,26 @@
+/* Styles for the input component */
+
+.input {
+    width: 500px; 
+    border-radius: 35px;
+    padding: 10px;
+    margin: 5px;
+}
+
+.input input {
+    border: none;
+    outline: none;
+    width: 300px;
+    border-radius: 35px;
+    font-size: 14px;
+    color: #367123;
+}
+
+.input input::placeholder {
+    color: #8DAA83;
+}
+
+.bg-color {
+    background-color: #ffffff;
+}
+
