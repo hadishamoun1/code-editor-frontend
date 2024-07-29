@@ -1,31 +1,42 @@
-import React, { useState } from "react";
-import Editor from "@monaco-editor/react";
+import { Box, HStack } from "@chakra-ui/react";
+import { Editor } from "@monaco-editor/react";
+import { useRef, useState } from "react";
+import LanguageSelector from "./LanguageSelector";
+import { CODE_SNIPPETS } from "../../constants";
+import Output from "./Output";
 
 const CodeEditor = () => {
-  const [code, setCode] = useState("# Write your code here");
-  const [language, setLanguage] = useState("python"); // Default language is Python
+  const editorRef = useRef();
+  const [value, setValue] = useState("");
+  const [language, setLanguage] = useState("javascript");
+
+  const onMount = (editor) => {
+    editorRef.current = editor;
+    editor.focus();
+  };
+  const onSelect = (language) => {
+    setLanguage(language);
+    setValue(CODE_SNIPPETS[language]);
+  };
 
   return (
-    <div style={{ height: "90vh", border: "1px solid #ddd" }}>
-      <select onChange={(e) => setLanguage(e.target.value)} value={language}>
-        <option value="javascript">JavaScript</option>
-        <option value="python">Python</option>
-        <option value="java">Java</option>
-        <option value="csharp">C#</option>
-        <option value="cpp">C++</option>
-      </select>
-      <Editor
-        height="100%"
-        language={language}
-        value={code}
-        onChange={(newValue) => setCode(newValue)}
-        options={{
-          selectOnLineNumbers: true,
-          automaticLayout: true,
-          theme: "vs-dark",
-        }}
-      />
-    </div>
+    <Box>
+      <HStack spacing={4}>
+        <Box w="50%">
+          <LanguageSelector language={language} onSelect={onSelect} />
+          <Editor
+            height="75vh"
+            theme="vs-dark"
+            language={language}
+            defaultValue={CODE_SNIPPETS[language]}
+            onMount={onMount}
+            value={value}
+            onChange={(value) => setValue(value)}
+          />
+        </Box>
+        <Output editorRef={editorRef} language={language} />
+      </HStack>
+    </Box>
   );
 };
 
