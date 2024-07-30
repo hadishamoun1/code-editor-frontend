@@ -4,6 +4,7 @@ import CodeEditor from "./components/CodeEditor/CodeEditor";
 import Landing from "./pages/landing/landing";
 import Chat from "./pages/chats/chat";
 import Login  from "./components/Login/Login";
+import Message from "./pages/messages/message";
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
         <Route path="/landing" element={<Landing/>} />
         <Route path="/chats" element={<Chat/>} />
         <Route path="/" element={<Login/>} />
+        <Route path="/message" element={<Message/>} />
       </Routes>
     </Router>
   );

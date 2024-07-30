@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import "./landing.css";
 import Button from "../../components/button/button";
 import Input from "../../components/input/input";
+import { Link } from "react-router-dom";
 
 const Landing = () => {
-
+    
     const [search, setSearch] = useState('');
     const [developers, setDevelopers] = useState([]);
     const [error, setError] = useState('');
@@ -12,7 +13,6 @@ const Landing = () => {
     const [suggestionFlag, setSuggestionFlag] = useState(false);
     const searchDevelopers =  async () => {
         try {
-            console.log(sessionStorage.getItem('token'));
             const response = await fetch(`http://127.0.0.1:8000/api/users`, {
                 headers: {
                   'Authorization': `Bearer ${sessionStorage.getItem('token')}`
@@ -61,7 +61,7 @@ const Landing = () => {
                 </ul>
             )}
                 <div className="flex nav-items">
-                    <p>Chats</p>
+                    <p><Link to="/chats">Chats</Link></p>
                     <p><a href="#footer">Contact us</a></p>
                 </div>
             </div>

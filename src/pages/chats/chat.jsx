@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import "./chat.css";
 import { localAuth } from "../../components/Login/localAuth";
 import Button from "../../components/button/button";
+import { useNavigate } from "react-router-dom";
 
 const Chat = () => {
+  const navigate = useNavigate();
   const [chats, setChats] = useState([]);
   const [error, setError] = useState("");
   const [userDetails, setUserDetails] = useState([]);
@@ -76,7 +78,7 @@ const Chat = () => {
                 <p className="chat-date">{formatDate(chat.created_at)}</p>
                 <Button 
                     text = "view chat"
-                    onClick = {() => window.location.href = `/message/${chat.id}`}
+                    // onClick = {() =>  navigate (`/message/${chat.id}`)}
                 />
               </div>
             </div>
