@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { localAuth } from "./localAuth";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,10 +18,12 @@ const Login = () => {
       });
       const { access_token } = response.data;
       sessionStorage.setItem("token", access_token);
+      localAuth.saveUserId(response.data.user.id);
       setMessage("Login successful");
-    } catch (error) {
-      setMessage("Error logging in");
-    }
+      navigate("/landing");
+      } catch (error) {
+        setMessage("Error logging in");
+      }
   };
 
   return (

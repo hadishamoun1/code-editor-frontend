@@ -12,13 +12,18 @@ const Landing = () => {
     const [suggestionFlag, setSuggestionFlag] = useState(false);
     const searchDevelopers =  async () => {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/users`);
+            console.log(sessionStorage.getItem('token'));
+            const response = await fetch(`http://127.0.0.1:8000/api/users`, {
+                headers: {
+                  'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+                }
+            });
             const data = await response.json();
+            console.log(data.users);
             if (data.message) {
                 setError(data.message);
             } else {
-                setDevelopers(data);
-                console.log(developers);
+                setDevelopers(data.users);
             }
         } catch (error) {
             setError('Failed to fetch developers.');       
@@ -29,7 +34,7 @@ const Landing = () => {
     }, []);
     useEffect(() => {
         setFiltered(developers.filter((developer) => developer.name.toLowerCase().includes(search.toLowerCase())));
-    }, [search, developers]);
+    }, [search]);
 
     return (
         <div className="landing">
