@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./chat.css";
 import { localAuth } from "../../components/Login/localAuth";
+import Button from "../../components/button/button";
 
 const Chat = () => {
   const [chats, setChats] = useState([]);
@@ -68,8 +69,16 @@ const Chat = () => {
         {chats.map((chat, index) => (
           <li key={chat.id} className="chat-item">
             <div className="chat-card">
-              <p>{userDetails[index]}</p>
-              <p className="chat-date">{formatDate(chat.created_at)}</p>
+              <div className="chat-info">
+              <p className="chat-name">{userDetails[index]}</p>
+              </div>
+              <div className="chat-actions">
+                <p className="chat-date">{formatDate(chat.created_at)}</p>
+                <Button 
+                    text = "view chat"
+                    onClick = {() => window.location.href = `/message/${chat.id}`}
+                />
+              </div>
             </div>
           </li>
         ))}

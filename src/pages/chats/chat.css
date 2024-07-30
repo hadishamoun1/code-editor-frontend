@@ -1,13 +1,15 @@
-/* Chat.css */
+
 .chat-container {
     background-color: black;
-    color: rgb(62, 223, 215);
+    color: #00c0a3;
     padding: 20px;
     height : 100%;
 }
 
 .chat-title {
-   color: rgb(62, 223, 215); /* Ensures the title stands out as bright white */
+   color: #34c5af; 
+    font-size: 60px;
+    margin: 40px;
 }
 
 .chat-list {
@@ -25,17 +27,28 @@
     align-items: center;
     background-color: #333; 
     padding: 25px;
-    margin: 20px;
+    margin: 40px;
     border-radius: 5px;
     transition: background-color 0.3s, transform 0.3s;
 }
 
 .chat-card:hover {
     background-color: #444; 
-    transform: scale(1.05); 
+    transform: scale(1.03); 
     cursor: pointer; 
 }
 .chat-date {
-    color: aqua;
+    color: #00c0a3;
+    margin-right: 60px;
 }
-  
+
+.chat-actions {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.chat-name {
+    font-size: 24px;;
+}
