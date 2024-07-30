@@ -74,10 +74,10 @@ const Login = () => {
             </FormControl>
             <Button
               type="submit"
-              bg="blue.400"
+              bg="#00C0A3"
               color="white"
               _hover={{
-                bg: "blue.500",
+                bg: "#00A68D",
               }}
             >
               Login
