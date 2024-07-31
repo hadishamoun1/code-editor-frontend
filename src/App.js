@@ -5,6 +5,13 @@ import CodeEditor from "./components/CodeEditor/CodeEditor";
 import Signup from "./components/Signup/Signup";
 import Login from "./components/Login/Login";
 import AdminPage from "./components/admin/AdminPage";
+import ExcelUpload from "./components/Excel/Excel";
+import Landing from "./components/landing/landing";
+import ProtectedRoute from "./components/protection/RouteProtection";
+import Unauthorized from "./components/protection/unauthorized";
+//import Chat from "./pages/chats/chat";
+//import Message from "./pages/messages/message";
+
 
 function App() {
   return (
@@ -12,10 +19,42 @@ function App() {
       <Box minH="100vh" bg="#0f0a19" color="gray.500" px={6} py={8}>
         <nav></nav>
         <Routes>
-          <Route path="/" element={<CodeEditor />} />
+          <Route path="/" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/unauthorized" element={<Unauthorized />} />
+
+          <Route
+            path="/editor"
+            element={<ProtectedRoute requiredRole="user" />}
+          >
+            <Route path="/editor" element={<CodeEditor />} />
+          </Route>
+
+          <Route
+            path="/landing"
+            element={<ProtectedRoute requiredRole="user" />}
+          >
+            <Route path="/landing" element={<Landing />} />
+          </Route>
+
+          <Route
+            path="/admin"
+            element={<ProtectedRoute requiredRole="admin" />}
+          >
+            <Route path="/admin" element={<AdminPage />} />
+          </Route>
+          <Route
+            path="/excel"
+            element={<ProtectedRoute requiredRole="admin" />}
+          >
+            <Route path="/excel" element={<ExcelUpload />} />
+          </Route>
+          <Route
+            path="/chats"
+            element={<ProtectedRoute requiredRole="user" />}
+          >
+        
+          </Route>
         </Routes>
       </Box>
     </Router>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
@@ -17,19 +18,20 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://127.0.0.1:8000/api/register", {
+      await axios.post("http://127.0.0.1:8000/api/register", {
         name,
         email,
         password,
-        password_confirmation: password,
+        role: "user", // Set the role to "user" by default
       });
-      setMessage("User registered successfully");
+      navigate("/login");
     } catch (error) {
-      setMessage("Error registering user");
+      setMessage("Error signing up");
     }
   };
 
@@ -82,27 +84,21 @@ const Signup = () => {
                 required
               />
             </FormControl>
-            <Button
-              type="submit"
-              bg="blue.400"
-              color="white"
-              _hover={{
-                bg: "blue.500",
-              }}
-            >
-              Signup
-            </Button>
-            {message && (
-              <Text
-                color={
-                  message === "User registered successfully"
-                    ? "green.500"
-                    : "red.500"
-                }
+            <Box display="flex" justifyContent="center">
+              <Button
+                type="submit"
+                bg="#00C0A3"
+                color="white"
+                _hover={{
+                  bg: "#00A68D",
+                }}
+                mt={4} 
+                maxWidth="200px"
               >
-                {message}
-              </Text>
-            )}
+                Signup
+              </Button>
+            </Box>
+            {message && <Text color="red.500">{message}</Text>}
           </Stack>
         </form>
       </Box>

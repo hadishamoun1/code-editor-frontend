@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
+
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
@@ -16,6 +19,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const navigate = useNavigate(); // Hook for navigation
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,8 +29,19 @@ const Login = () => {
         password,
       });
       const { access_token } = response.data;
-      sessionStorage.setItem("token", access_token);
-      setMessage("Login successful");
+      sessionStorage.setItem("jwtToken", access_token);
+
+      // Decode the token to get the user's role
+      const decodedToken = jwtDecode(access_token);
+      const role = decodedToken.role; // Assuming the role is stored in the token
+
+      if (role === "admin") {
+        navigate("/admin"); // Redirect to admin page
+      } else if (role === "user") {
+        navigate("/landing"); // Redirect to user page
+      } else {
+        setMessage("Unknown role");
+      }
     } catch (error) {
       setMessage("Error logging in");
     }
@@ -72,16 +87,20 @@ const Login = () => {
                 required
               />
             </FormControl>
-            <Button
-              type="submit"
-              bg="#00C0A3"
-              color="white"
-              _hover={{
-                bg: "#00A68D",
-              }}
-            >
-              Login
-            </Button>
+            <Box display="flex" justifyContent="center">
+              <Button
+                type="submit"
+                bg="#00C0A3"
+                color="white"
+                _hover={{
+                  bg: "#00A68D",
+                }}
+                maxWidth="200px"
+                mt={5}
+              >
+                Login
+              </Button>
+            </Box>
             {message && (
               <Text
                 color={message === "Login successful" ? "green.500" : "red.500"}
