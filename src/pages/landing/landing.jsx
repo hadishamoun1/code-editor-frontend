@@ -3,9 +3,10 @@ import "./landing.css";
 import Button from "../../components/button/button";
 import Input from "../../components/input/input";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Landing = () => {
-    
+    const navigate = useNavigate();
     const [search, setSearch] = useState('');
     const [developers, setDevelopers] = useState([]);
     const [error, setError] = useState('');
@@ -40,7 +41,7 @@ const Landing = () => {
         <div className="landing">
             <div className="flex row">
                 <div className="flex row">
-                    <img className="logo" src= {`${process.env.PUBLIC_URL}/Logo.png`}></img>
+                    <img className="logo" src= {`${process.env.PUBLIC_URL}/Logo1.png`}></img>
                     <p className="name">CodeNest</p>
                 </div>
                 <Input 
@@ -69,7 +70,7 @@ const Landing = () => {
                 <img className="hero" src= {`${process.env.PUBLIC_URL}/hero.png`}></img>
                 <Button 
                     text= "Start Building"
-                    onMouseClick={() => console.log("clicked")}
+                    onMouseClick={() => navigate('/CodeEditor')}
                 />
             </div>
             <div>

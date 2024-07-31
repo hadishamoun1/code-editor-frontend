@@ -3,6 +3,7 @@ import "./chat.css";
 import { localAuth } from "../../components/Login/localAuth";
 import Button from "../../components/button/button";
 import { useNavigate } from "react-router-dom";
+import { localChat } from "./localChat";
 
 const Chat = () => {
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ const Chat = () => {
     try {
       const details = await Promise.all(chats.map(async (chat) => {
         let url = `http://127.0.0.1:8000/api/users/`;
-        url += chat.User_2_id === userId ? chat.User_1_id : chat.User_2_id;
+        chat.User_2_id == userId ? url= url + chat.User_1_id : url= url + chat.User_2_id;
         const response = await fetch(url, {
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem("token")}`,
@@ -41,14 +42,23 @@ const Chat = () => {
         return data.user.name; 
       }));
       setUserDetails(details);
+      console.log(details);
     } catch (error) {
       setError("Failed to fetch user details.");
       console.error("Error fetching user details:", error);
     }
   };
  
+  const newChat = () => {
+    
+  
+  }
+
   useEffect( () => {
     getChats();
+  }, []);
+
+  useEffect(() => {
     fetchUserDetails(chats);
   }, [chats]);
 
@@ -77,8 +87,10 @@ const Chat = () => {
               <div className="chat-actions">
                 <p className="chat-date">{formatDate(chat.created_at)}</p>
                 <Button 
-                    text = "view chat"
-                    // onClick = {() =>  navigate (`/message/${chat.id}`)}
+                    text = "View Chat"
+                    onMouseClick = {() => {localChat.setChatId(chat.id)
+                      navigate("/message", {state: { developerName: userDetails[index] }})
+                    }}
                 />
               </div>
             </div>

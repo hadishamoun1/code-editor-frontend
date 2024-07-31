@@ -1,7 +1,7 @@
 import React from "react";
 import "./input.css";
 
-const Input = ({placeholder, onTextChange, onMouseClick, onBlur }) => {
+const Input = ({placeholder, onTextChange, onMouseClick, onBlur , style, value }) => {
     return (
         <div className="input bg-color">
             <input
@@ -10,6 +10,8 @@ const Input = ({placeholder, onTextChange, onMouseClick, onBlur }) => {
                 onChange={(e) =>onTextChange(e)}
                 onClick={onMouseClick}
                 onBlur={onBlur}
+                style={style}
+                value={value}
             />
         </div>
     );

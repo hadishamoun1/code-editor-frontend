@@ -1,10 +1,9 @@
-/* Styles for the input component */
 
 .input {
     width: 500px; 
     border-radius: 35px;
-    padding: 10px;
-    margin: 5px;
+    margin: 15px;
+    height: 30px;
 }
 
 .input input {
@@ -13,11 +12,13 @@
     width: 300px;
     border-radius: 35px;
     font-size: 14px;
-    color: #367123;
+    color: #00C0A3;
+    text-indent: 10px;
+    margin-top: 5px;
 }
 
 .input input::placeholder {
-    color: #8DAA83;
+    color: #05a78e;
 }
 
 .bg-color {
