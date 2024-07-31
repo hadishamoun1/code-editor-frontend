@@ -4,6 +4,7 @@ import Button from "../../components/button/button";
 import Input from "../../components/input/input";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { localAuth } from "../../components/Login/localAuth";
 
 const Landing = () => {
     const navigate = useNavigate();
@@ -20,7 +21,6 @@ const Landing = () => {
                 }
             });
             const data = await response.json();
-            console.log(data.users);
             if (data.message) {
                 setError(data.message);
             } else {
@@ -30,6 +30,28 @@ const Landing = () => {
             setError('Failed to fetch developers.');       
         }
     };
+
+    const openChat = (id) => {
+        try{
+            const response = fetch('http://127.0.0.1:8000/api/chat', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+                },
+                body: JSON.stringify({
+                    user_1_id: localAuth.getItem("userId"),
+                    user_2_id: id,  
+            })
+        })
+        const data = response.json();
+        console.log(data);
+        } catch(error) {
+            setError('Failed to open chat');
+            console.log(error);
+        }
+    }
+
     useEffect(() => {
         searchDevelopers();
     }, []);
@@ -57,10 +79,16 @@ const Landing = () => {
                     {filtered.map((developer, index) => (
                         <li key={index} className="suggestion-item">
                             {developer.name}
+                            <Button
+                                text="chat"
+                                style = {{marginLeft: "250px", width: "41px", height: "22px", marginTop: "50px"}}
+                                onMouseClick={()=> openChat(developer.id)}
+                            />
                         </li>
                     ))}
                 </ul>
             )}
+                
                 <div className="flex nav-items">
                     <p><Link to="/chats">Chats</Link></p>
                     <p><a href="#footer">Contact us</a></p>

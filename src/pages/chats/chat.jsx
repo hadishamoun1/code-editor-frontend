@@ -49,10 +49,6 @@ const Chat = () => {
     }
   };
  
-  const newChat = () => {
-    
-  
-  }
 
   useEffect( () => {
     getChats();

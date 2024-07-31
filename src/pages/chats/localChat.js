@@ -1,8 +1,8 @@
 export const localChat =  {
     setChatId : (chatId) => {
-        localStorage.setItem("chatId", chatId);
+        sessionStorage.setItem("chatId", chatId);
     },
     getChatId : () => {
-        return localStorage.chatId;
+        return sessionStorage.chatId;
     }
 } 

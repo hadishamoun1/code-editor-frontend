@@ -1,8 +1,8 @@
 export const localAuth = {
     saveUserId: (userId) => {
-      localStorage.setItem("userId", userId);
+      sessionStorage.setItem("userId", userId);
     },
     getUserId: () => {
-      return localStorage.userId;
+      return sessionStorage.getItem("userId");
     },
   };

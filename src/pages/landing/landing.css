@@ -91,7 +91,7 @@ h2{
 .footer img {
     height: 40px;
     margin-left: 30px;
-    margin-right: -12px;;
+    margin-right: -12px;
 
 }
 .icons {
@@ -118,5 +118,8 @@ Button {
     padding: 5px;
     cursor: pointer;
     margin-left: -35px;
+    font-size: large;
+    margin-Top: -30px;
+    margin-bottom: 20px;
 }
 
