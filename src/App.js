@@ -6,11 +6,11 @@ import Signup from "./components/Signup/Signup";
 import Login from "./components/Login/Login";
 import AdminPage from "./components/admin/AdminPage";
 import ExcelUpload from "./components/Excel/Excel";
-import Landing from "./components/landing/landing";
+import Landing from "./pages/landing/landing";
 import ProtectedRoute from "./components/protection/RouteProtection";
 import Unauthorized from "./components/protection/unauthorized";
-//import Chat from "./pages/chats/chat";
-//import Message from "./pages/messages/message";
+import Chat from "./pages/chats/chat";
+import Message from "./pages/messages/message";
 
 
 function App() {
@@ -53,7 +53,13 @@ function App() {
             path="/chats"
             element={<ProtectedRoute requiredRole="user" />}
           >
-        
+            <Route path="/chats" element={<Chat />} />
+          </Route>
+          <Route
+            path="/message"
+            element={<ProtectedRoute requiredRole="user" />}
+          >
+            <Route path="/message" element={<Message />} />
           </Route>
         </Routes>
       </Box>

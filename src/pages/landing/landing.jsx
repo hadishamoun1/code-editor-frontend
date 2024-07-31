@@ -17,7 +17,7 @@ const Landing = () => {
         try {
             const response = await fetch(`http://127.0.0.1:8000/api/users`, {
                 headers: {
-                  'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+                  'Authorization': `Bearer ${sessionStorage.getItem('jwtToken')}`
                 }
             });
             const data = await response.json();
@@ -37,7 +37,7 @@ const Landing = () => {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+                    Authorization: `Bearer ${sessionStorage.getItem("jwtToken")}`,
                 },
                 body: JSON.stringify({
                     user_1_id: localAuth.getItem("userId"),
@@ -71,7 +71,7 @@ const Landing = () => {
                 onTextChange={(e) => setSearch(e.target.value)}
                 onMouseClick={() => setSuggestionFlag(true)}
                 onBlur={() => setSuggestionFlag(false)}
-                
+                style={{width: "250px", height: "25px", background: "white", marginTop: "-10px", padding: "5px"}}
                 />
                  {error && <p>{error}</p>}
                  {suggestionFlag && filtered.length > 0 && (
@@ -81,7 +81,7 @@ const Landing = () => {
                             {developer.name}
                             <Button
                                 text="chat"
-                                style = {{marginLeft: "250px", width: "41px", height: "22px", marginTop: "50px"}}
+                                style = {{marginLeft: "200px", width: "41px", height: "22px", marginTop: "30px"}}
                                 onMouseClick={()=> openChat(developer.id)}
                             />
                         </li>

@@ -22,7 +22,13 @@ const Message= () => {
     const developerName = location.state?.developerName;
     const fetchUserMessages = async () => {
         try {
-        const response = await fetch(`http://127.0.0.1:8000/api/message/${chatId}`);
+        const response = await fetch(`http://127.0.0.1:8000/api/message/${chatId}`, {
+            headers: {
+                Authorization: `Bearer ${sessionStorage.getItem("jwtToken")}`,
+            },
+        }
+
+        );
         const data = await response.json();
         if (data.message) {
             setError(data.message);
@@ -45,7 +51,7 @@ const Message= () => {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+                    Authorization: `Bearer ${sessionStorage.getItem("jwtToken")}`,
                 },
                 body: JSON.stringify({
                     chat_id: chatId,

@@ -15,7 +15,7 @@ const Chat = () => {
     try {
       const response = await fetch(`http://127.0.0.1:8000/api/chat/${userId}`, {
         headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          Authorization: `Bearer ${sessionStorage.getItem("jwtToken")}`,
         },
       });
       const data = await response.json();
@@ -35,11 +35,12 @@ const Chat = () => {
         chat.User_2_id == userId ? url= url + chat.User_1_id : url= url + chat.User_2_id;
         const response = await fetch(url, {
           headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            Authorization: `Bearer ${sessionStorage.getItem("jwtToken")}`,
           },
         });
         const data = await response.json();
-        return data.user.name; 
+        console.log(data);
+        return data.users.name; 
       }));
       setUserDetails(details);
       console.log(details);
