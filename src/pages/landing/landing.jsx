@@ -2,9 +2,12 @@ import React, { useState, useEffect } from "react";
 import "./landing.css";
 import Button from "../../components/button/button";
 import Input from "../../components/input/input";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { localAuth } from "../../components/Login/localAuth";
 
 const Landing = () => {
-
+    const navigate = useNavigate();
     const [search, setSearch] = useState('');
     const [developers, setDevelopers] = useState([]);
     const [error, setError] = useState('');
@@ -12,30 +15,55 @@ const Landing = () => {
     const [suggestionFlag, setSuggestionFlag] = useState(false);
     const searchDevelopers =  async () => {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/users`);
+            const response = await fetch(`http://127.0.0.1:8000/api/users`, {
+                headers: {
+                  'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+                }
+            });
             const data = await response.json();
             if (data.message) {
                 setError(data.message);
             } else {
-                setDevelopers(data);
-                console.log(developers);
+                setDevelopers(data.users);
             }
         } catch (error) {
             setError('Failed to fetch developers.');       
         }
     };
+
+    const openChat = (id) => {
+        try{
+            const response = fetch('http://127.0.0.1:8000/api/chat', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+                },
+                body: JSON.stringify({
+                    user_1_id: localAuth.getItem("userId"),
+                    user_2_id: id,  
+            })
+        })
+        const data = response.json();
+        console.log(data);
+        } catch(error) {
+            setError('Failed to open chat');
+            console.log(error);
+        }
+    }
+
     useEffect(() => {
         searchDevelopers();
     }, []);
     useEffect(() => {
         setFiltered(developers.filter((developer) => developer.name.toLowerCase().includes(search.toLowerCase())));
-    }, [search, developers]);
+    }, [search]);
 
     return (
         <div className="landing">
             <div className="flex row">
                 <div className="flex row">
-                    <img className="logo" src= {`${process.env.PUBLIC_URL}/Logo.png`}></img>
+                    <img className="logo" src= {`${process.env.PUBLIC_URL}/Logo1.png`}></img>
                     <p className="name">CodeNest</p>
                 </div>
                 <Input 
@@ -51,12 +79,18 @@ const Landing = () => {
                     {filtered.map((developer, index) => (
                         <li key={index} className="suggestion-item">
                             {developer.name}
+                            <Button
+                                text="chat"
+                                style = {{marginLeft: "250px", width: "41px", height: "22px", marginTop: "50px"}}
+                                onMouseClick={()=> openChat(developer.id)}
+                            />
                         </li>
                     ))}
                 </ul>
             )}
+                
                 <div className="flex nav-items">
-                    <p>Chats</p>
+                    <p><Link to="/chats">Chats</Link></p>
                     <p><a href="#footer">Contact us</a></p>
                 </div>
             </div>
@@ -64,7 +98,7 @@ const Landing = () => {
                 <img className="hero" src= {`${process.env.PUBLIC_URL}/hero.png`}></img>
                 <Button 
                     text= "Start Building"
-                    onMouseClick={() => console.log("clicked")}
+                    onMouseClick={() => navigate('/CodeEditor')}
                 />
             </div>
             <div>

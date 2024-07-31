@@ -27,7 +27,7 @@
 }
 
 .name {
-    color: #579b40;
+    color: #00C0A3;
     font-size: 20px;
 }
 
@@ -45,10 +45,10 @@
 }
 
 .nav-items p:hover {
-    color: #579b40;
+    color: #00C0A3;
 }
 .nav-items a:hover {
-    color: #579b40;
+    color: #00C0A3;
 }
 
 
@@ -68,7 +68,7 @@ h1 {
 .why-us {
     font-size: 24px;
     color: rgb(227, 241, 229);
-    background-color: #335c25;
+    background-color: #017766;
     margin: 20px;
     padding: 20px;
     line-height: 2;
@@ -77,7 +77,7 @@ h1 {
 }
 
 .footer {
-    background-color: #335c25;
+    background-color: #017766;
     height: 19vh;
     padding: 30px;
     color: white;
@@ -91,7 +91,7 @@ h2{
 .footer img {
     height: 40px;
     margin-left: 30px;
-    margin-right: -12px;;
+    margin-right: -12px;
 
 }
 .icons {
@@ -107,7 +107,7 @@ Button {
     margin: 47px 0px 0px 434px;
     max-height: 150px;
     overflow-y: auto;
-    background-color: rgb(87, 124, 49);
+    background-color: rgb(3, 147, 130);
     position: absolute;
     width: 31vw;
     color:white;
@@ -118,5 +118,8 @@ Button {
     padding: 5px;
     cursor: pointer;
     margin-left: -35px;
+    font-size: large;
+    margin-Top: -30px;
+    margin-bottom: 20px;
 }
 

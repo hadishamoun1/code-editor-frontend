@@ -14,12 +14,13 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { localAuth } from "./localAuth";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
-  const navigate = useNavigate(); // Hook for navigation
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,7 +35,7 @@ const Login = () => {
       // Decode the token to get the user's role
       const decodedToken = jwtDecode(access_token);
       const role = decodedToken.role; // Assuming the role is stored in the token
-
+      localAuth.saveUserId(response.data.user.id);
       if (role === "admin") {
         navigate("/admin"); // Redirect to admin page
       } else if (role === "user") {
@@ -42,9 +43,9 @@ const Login = () => {
       } else {
         setMessage("Unknown role");
       }
-    } catch (error) {
-      setMessage("Error logging in");
-    }
+      } catch (error) {
+        setMessage("Error logging in");
+      }
   };
 
   return (
