@@ -32,27 +32,28 @@ const Landing = () => {
         }
     };
 
-    const openChat = (id) => {
+    const openChat = async (id) => {
         try{
-            const response = fetch('http://127.0.0.1:8000/api/chat', {
+            const response = await fetch('http://127.0.0.1:8000/api/chat', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${sessionStorage.getItem("jwtToken")}`,
                 },
                 body: JSON.stringify({
-                    user_1_id: localAuth.getItem("userId"),
+                    user_1_id: sessionStorage.getItem("userId"),
                     user_2_id: id,  
             })
         })
-        const data = response.json();
+        console.log(id);
+        const data = await response.json();
         console.log(data);
         } catch(error) {
             setError('Failed to open chat');
             console.log(error);
         }
     }
-    console.log(developers);
+
     useEffect(() => {
         searchDevelopers();
     }, []);
@@ -84,6 +85,7 @@ const Landing = () => {
                                 text="chat"
                                 style = {{marginLeft: "200px", width: "41px", height: "22px", marginTop: "30px"}}
                                 onMouseClick={()=> openChat(developer.id)}
+                                
                             />
                         </li>
                     ))}
