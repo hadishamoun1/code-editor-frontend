@@ -2,7 +2,7 @@ import { Box, Button, Text, useToast } from "@chakra-ui/react";
 import { executeCode } from "../../api.js";
 import { useState } from "react";
 
-const Output = ({ editorRef, language }) => {
+const Output = ({ editorRef, language, copilotSuggestion }) => {
   const toast = useToast();
   const [output, setOutput] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -43,12 +43,17 @@ const Output = ({ editorRef, language }) => {
       </Button>
       <Box
         height="75vh"
-        p={2}
+        p={1}
         border="1px solid"
         borderRadius={4}
         borderColor="#333"
       >
-        {output ? output : 'Click "Run Code" to see the output here'}
+        <Text mt={4} fontWeight="bold">Copilot Suggestion:</Text>
+        <Text>{copilotSuggestion || "No copilot suggestions."}</Text>
+        {output ? (
+          <>
+          </>
+        ) : 'Click "Run Code" to see the output here'}
       </Box>
     </Box>
   );

@@ -1,10 +1,11 @@
-import { Box, Button, HStack, Select, VStack } from "@chakra-ui/react";
+import { Box, Button, HStack, Select, VStack, Text } from "@chakra-ui/react";
 import { Editor } from "@monaco-editor/react";
 import { useRef, useState, useEffect } from "react";
 import axios from "axios";
 import LanguageSelector from "./LanguageSelector";
 import { CODE_SNIPPETS } from "../../constants";
 import Output from "./Output";
+import debounce from 'lodash.debounce';
 
 const CodeEditor = () => {
   const editorRef = useRef();
@@ -13,6 +14,7 @@ const CodeEditor = () => {
   const [codeId, setCodeId] = useState(null); // To track the code ID for saving and updating
   const [codeList, setCodeList] = useState([]); // To store the list of codes
   const [selectedCode, setSelectedCode] = useState(null); // To track selected code
+  const [copilotSuggestion, setCopilotSuggestion] = useState("");
 
   useEffect(() => {
     if (selectedCode) {
@@ -94,6 +96,44 @@ const CodeEditor = () => {
     }
   };
 
+  const fetchCopilotSuggestions = async (code) => {
+    if (!code.trim()) return;
+    try {
+      const response = await axios.post(
+        "https://api.openai.com/v1/chat/completions",
+        {
+          model: "gpt-3.5-turbo",
+          messages: [
+            { role: "system", content: "You are a helpful assistant." },
+            { role: "user", content: value },
+          ],
+          max_tokens: 100,
+          temperature: 0.7,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`
+          },
+        }
+      );
+       setCopilotSuggestion(response.data.choices[0].message.content.trim());
+    } catch (error) {
+      console.error("Failed to fetch suggestions from Copilot:", error);
+      return "Error fetching suggestions.";
+    }
+  };
+
+  const debouncedFetchSuggestions = debounce(fetchCopilotSuggestions, 1000);
+
+  const onEditorChange = (newValue, event) => {
+    setValue(newValue);
+    debouncedFetchSuggestions(newValue);
+  };
+  useEffect(() => {
+    fetchCopilotSuggestions(value); // Optionally fetch initial suggestions when the component mounts
+  }, []);
+
   useEffect(() => {
     loadCodeList(); // Load the code list when the component mounts
   }, []);
@@ -130,10 +170,10 @@ const CodeEditor = () => {
             language={language}
             value={value}
             onMount={onMount}
-            onChange={(value) => setValue(value)}
+            onChange={onEditorChange}
           />
         </Box>
-        <Output editorRef={editorRef} language={language} />
+        <Output editorRef={editorRef} language={language} copilotSuggestion={copilotSuggestion}/>
       </HStack>
     </Box>
   );

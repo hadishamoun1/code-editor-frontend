@@ -21,6 +21,7 @@ const Landing = () => {
                 }
             });
             const data = await response.json();
+            console.log(data);
             if (data.message) {
                 setError(data.message);
             } else {
@@ -51,7 +52,7 @@ const Landing = () => {
             console.log(error);
         }
     }
-
+    console.log(developers);
     useEffect(() => {
         searchDevelopers();
     }, []);
@@ -98,7 +99,7 @@ const Landing = () => {
                 <img className="hero" src= {`${process.env.PUBLIC_URL}/hero.png`}></img>
                 <Button 
                     text= "Start Building"
-                    onMouseClick={() => navigate('/CodeEditor')}
+                    onMouseClick={() => navigate('/editor')}
                 />
             </div>
             <div>
