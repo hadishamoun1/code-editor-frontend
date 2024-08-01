@@ -1,17 +1,15 @@
 import React from "react";
 import "./button.css";
 
-const Button = ({text, onMouseClick, style}) => 
-    {
-        return (
-        <button
-            onClick={onMouseClick}
-            className={`button`}
-            style={style}
-        >
-            {text}
-        </button>
-        );
-  };
-  
+const Button = ({ onMouseClick, style, index }) => {
+  function handleClick() {
+    onMouseClick(index);
+  }
+  return (
+    <button onClick={handleClick} className={`button`} style={style}>
+      Chat
+    </button>
+  );
+};
+
 export default Button;

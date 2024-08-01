@@ -1,123 +1,120 @@
 .landing {
-    background-color: #111111;
-    height: 100%;
-    margin: 0;
-    padding: 5px;
- 
+  background-color: #111111;
+  height: 100%;
+  margin: 0;
+  padding: 5px;
 }
 
 .flex {
-    display: flex;
-    align-items: flex-start;
+  display: flex;
+  align-items: flex-start;
 }
 .row {
-    justify-content: space-between;
-    flex-direction: row;
+  justify-content: space-between;
+  flex-direction: row;
 }
 
 .column {
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 .logo {
-    width: 40px;
-    height: 50px;
-    margin-right: 20px;
-    margin-top: -10px;
+  width: 40px;
+  height: 50px;
+  margin-right: 20px;
+  margin-top: -10px;
 }
 
 .name {
-    color: #00C0A3;
-    font-size: 20px;
+  color: #00c0a3;
+  font-size: 20px;
 }
 
-.nav-items p,a {
-    color: white;
-    margin-right: 40px;
-    font-size: 20px;
+.nav-items p,
+a {
+  color: white;
+  margin-right: 40px;
+  font-size: 20px;
 }
 
-.nav-items{
-    cursor: pointer;
+.nav-items {
+  cursor: pointer;
 }
 .nav-items a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .nav-items p:hover {
-    color: #00C0A3;
+  color: #00c0a3;
 }
 
 .hero {
-    width:100%;
-    height: 90vh;
-    object-fit: cover;
-    overflow: hidden;
-    margin-top: 30px;
+  width: 100%;
+  height: 90vh;
+  object-fit: cover;
+  overflow: hidden;
+  margin-top: 30px;
 }
 
 h1 {
-    color: #579b40;
-    margin: 20px;
-    font-size: 50px;
+  color: #579b40;
+  margin: 20px;
+  font-size: 50px;
 }
 
 .why-us {
-    font-size: 24px;
-    color: rgb(227, 241, 229);
-    background-color: #017766;
-    margin: 20px;
-    padding: 20px;
-    line-height: 2;
-    border-radius: 25px;
-    margin-bottom: 99px;
+  font-size: 24px;
+  color: rgb(227, 241, 229);
+  background-color: #017766;
+  margin: 20px;
+  padding: 20px;
+  line-height: 2;
+  border-radius: 25px;
+  margin-bottom: 99px;
 }
 
 .footer {
-    background-color: #017766;
-    height: 19vh;
-    padding: 30px;
-    color: white;
+  background-color: #017766;
+  height: 19vh;
+  padding: 30px;
+  color: white;
 }
 
-h2{
-    color: white;
-    font-size: 30px;
+h2 {
+  color: white;
+  font-size: 30px;
 }
 
 .footer img {
-    height: 40px;
-    margin-left: 30px;
-    margin-right: -12px;
-
+  height: 40px;
+  margin-left: 30px;
+  margin-right: -12px;
 }
 .icons {
-    justify-content: center;
+  justify-content: center;
 }
 Button {
-    color: white;
-    transition: background-color 0.6s;
-    transform: translate(-20%, -50%);
+  color: white;
+  transition: background-color 0.6s;
+  transform: translate(-20%, -50%);
 }
 .suggestions-list {
-    list-style-type: none;
-    margin: 47px 0px 0px 420px;
-    max-height: 150px;
-    overflow-y: auto;
-    background-color: rgb(3, 147, 130);
-    position: absolute;
-    width: 30vw;
-    color:white;
-    z-index: 1000;
+  list-style-type: none;
+  margin: 47px 0px 0px 420px;
+  max-height: 150px;
+  overflow-y: auto;
+  background-color: rgb(3, 147, 130);
+  position: absolute;
+  width: 30vw;
+  color: white;
+  /* z-index: 1000; */
 }
 
 .suggestion-item {
-    padding: 5px;
-    cursor: pointer;
-    margin-left: 10px;
-    font-size: medium;
-    margin-Top: 0px;
-    
+  padding: 5px;
+  /* cursor: pointer; */
+  margin-left: 10px;
+  font-size: medium;
+  margin-top: 0px;
 }
-
